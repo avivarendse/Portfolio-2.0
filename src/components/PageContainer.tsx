@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 interface PageContainerProps {
   eyebrow?: string
-  title: string
+  title: ReactNode
   children: ReactNode
 }
 

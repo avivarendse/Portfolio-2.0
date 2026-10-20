@@ -1,62 +1,113 @@
 import { Link } from 'react-router-dom'
-import { PrimaryButton, SecondaryButton } from '../components/Buttons'
+import { PrimaryButton } from '../components/Buttons'
 import { ChamferedPanel } from '../components/ChamferedPanel'
 import { PageContainer } from '../components/PageContainer'
 
 export function ProfilePage() {
   return (
-    <PageContainer eyebrow="Player profile" title="The developer behind the career.">
+    <PageContainer
+      eyebrow="Player profile"
+      title={
+        <>
+          <span className="heading-lead">The developer </span>
+          <span className="heading-accent">behind the career.</span>
+        </>
+      }
+    >
       <div className="profile-grid">
-        <ChamferedPanel title="Profile" className="profile-card">
-          <div className="profile-identity">
-            <div className="avatar" aria-label="Developer portrait placeholder" />
-            <ul className="profile-details">
-              <li>
-                <span>Name:</span> [placeholder name]
-              </li>
-              <li>
-                <span>Location:</span> [placeholder location]
-              </li>
-              <li>
-                <span>Current stage:</span> Junior full-stack developer
-              </li>
-            </ul>
-          </div>
+        <ChamferedPanel title="Player profile" className="profile-card profile-identity-card">
+          <dl className="profile-details">
+            <div>
+              <dt>Role</dt>
+              <dd>Junior full-stack developer</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>South Africa</dd>
+            </div>
+            <div>
+              <dt>Career direction</dt>
+              <dd>First junior software engineering role</dd>
+            </div>
+          </dl>
         </ChamferedPanel>
 
-        <ChamferedPanel title="About me" className="profile-card">
+        <ChamferedPanel title="About me" className="profile-card profile-intro-card">
           <p>
-            I am learning by building real products, refining my full-stack workflow, and
-            balancing production-ready implementation with clear communication and maintainable
-            design decisions.
+            I am a junior full-stack developer based in South Africa, working towards my first
+            junior software engineering role. I have completed a full-stack web development
+            programme and have development programme and internship experience. My work includes
+            personal and collaborative projects.
           </p>
         </ChamferedPanel>
 
-        <ChamferedPanel title="Engineering philosophy" className="profile-card narrow-card">
-          <ul className="check-list">
-            <li>Clean code</li>
-            <li>Test-driven development</li>
-            <li>User-centric design</li>
+        <ChamferedPanel
+          title="Learning & development"
+          className="profile-card profile-background-card"
+        >
+          <ul className="profile-background-list">
+            <li>Completed a full-stack web development programme</li>
+            <li>Development programme and internship experience</li>
+            <li>Personal and collaborative project work</li>
           </ul>
         </ChamferedPanel>
 
-        <ChamferedPanel title="Technical toolkit" className="profile-card narrow-card">
-          <ul className="tag-list">
-            <li>React</li>
-            <li>TypeScript</li>
-            <li>Node.js</li>
-            <li>SQL</li>
-          </ul>
+        <ChamferedPanel title="Technical toolkit" className="profile-card profile-toolkit-card">
+          <div className="profile-toolkit">
+            <section aria-labelledby="profile-frontend-heading">
+              <h3 id="profile-frontend-heading">Frontend</h3>
+              <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Vue.js</li>
+              </ul>
+            </section>
+            <section aria-labelledby="profile-backend-heading">
+              <h3 id="profile-backend-heading">Backend</h3>
+              <ul>
+                <li>Node.js</li>
+                <li>Express.js</li>
+              </ul>
+            </section>
+            <section aria-labelledby="profile-databases-heading">
+              <h3 id="profile-databases-heading">Database</h3>
+              <ul>
+                <li>MySQL</li>
+              </ul>
+            </section>
+            <section aria-labelledby="profile-languages-heading">
+              <h3 id="profile-languages-heading">Language</h3>
+              <ul>
+                <li>Python</li>
+              </ul>
+            </section>
+          </div>
+        </ChamferedPanel>
+
+        <ChamferedPanel title="Current development focus" className="profile-card profile-focus-card">
+          <div className="profile-project-focus">
+            <div>
+              <h3>Handled</h3>
+              <p>
+                My main portfolio project: a full-stack field-service operations platform for small
+                plumbing and electrical businesses. It is under development; planned workflows are
+                not presented as completed features.
+              </p>
+            </div>
+            <Link to="/projects/handled" className="profile-project-link">
+              View Handled overview <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </ChamferedPanel>
+
+        <ChamferedPanel title="Career objective" className="profile-card profile-objective-card">
+          <p>Working towards my first junior software engineering role.</p>
         </ChamferedPanel>
       </div>
 
       <div className="cta-row">
-        <Link to="/projects">
-          <PrimaryButton type="button">Browse projects</PrimaryButton>
-        </Link>
-        <Link to="/contact">
-          <SecondaryButton type="button">Contact</SecondaryButton>
-        </Link>
+        <PrimaryButton to="/projects">Browse projects</PrimaryButton>
       </div>
     </PageContainer>
   )

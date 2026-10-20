@@ -1,12 +1,30 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { Link, type LinkProps } from 'react-router-dom'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonContentProps {
   children: ReactNode
+  className?: string
 }
 
-export function PrimaryButton({ children, className = '', ...props }: ButtonProps) {
+type ButtonProps = ButtonContentProps & ButtonHTMLAttributes<HTMLButtonElement>
+type ButtonLinkProps = ButtonContentProps & Omit<LinkProps, 'children' | 'className'>
+
+export function PrimaryButton(props: ButtonProps | ButtonLinkProps) {
+  const { children, className = '' } = props
+  const buttonClass = `primary-button ${className}`.trim()
+
+  if ('to' in props) {
+    const { to, ...linkProps } = props
+
+    return (
+      <Link to={to} {...linkProps} className={buttonClass}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
-    <button className={`primary-button ${className}`.trim()} {...props}>
+    <button {...props} className={buttonClass}>
       {children}
     </button>
   )

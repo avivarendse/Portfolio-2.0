@@ -11,23 +11,26 @@ export function SiteLayout() {
   return (
     <div className="site-shell">
       <header className="topbar">
-        <div className="brand-mark" aria-label="Road to the first team brand">
-          ROAD TO THE FIRST TEAM
-        </div>
+        <div className="topbar-inner">
+          <NavLink to="/" end className="brand-mark" aria-label="Road to the first team home">
+            ROAD TO THE FIRST TEAM
+          </NavLink>
 
-        <nav className="site-nav" aria-label="Main navigation">
-          {navItems.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `nav-link ${isActive ? 'nav-link-active' : ''}`.trim()
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
-        </nav>
+          <nav className="site-nav" aria-label="Main navigation">
+            {navItems.map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={to === '/'}
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? 'nav-link-active' : ''}`.trim()
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
       </header>
 
       <main className="page-content">
