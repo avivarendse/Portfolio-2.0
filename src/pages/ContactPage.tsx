@@ -1,7 +1,15 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { PrimaryButton } from '../components/Buttons'
 import { ChamferedPanel } from '../components/ChamferedPanel'
 import { PageContainer } from '../components/PageContainer'
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/meaebpzo'
+
+type SubmissionState =
+  | { status: 'idle' }
+  | { status: 'sending' }
+  | { status: 'success'; message: string }
+  | { status: 'error'; message: string }
 
 const contactMethods = [
   // TODO: Add verified email, LinkedIn, and GitHub values and destinations before enabling links.
@@ -16,13 +24,45 @@ const contactMethods = [
 }>
 
 export function ContactPage() {
-  const [submissionNotice, setSubmissionNotice] = useState('')
+  const [submission, setSubmission] = useState<SubmissionState>({ status: 'idle' })
+  const isSubmitting = useRef(false)
 
-  function handleUnavailableSubmission(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSubmissionNotice(
-      'Your message was not sent. Contact form delivery has not been configured.',
-    )
+    if (isSubmitting.current) return
+
+    const form = event.currentTarget
+    isSubmitting.current = true
+    setSubmission({ status: 'sending' })
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      })
+
+      if (!response.ok) {
+        setSubmission({
+          status: 'error',
+          message: `Your message could not be sent (error ${response.status}). Please try again.`,
+        })
+        return
+      }
+
+      form.reset()
+      setSubmission({
+        status: 'success',
+        message: 'Your message was sent successfully. Thank you for getting in touch.',
+      })
+    } catch {
+      setSubmission({
+        status: 'error',
+        message: 'Could not reach the form service. Check your connection and try again.',
+      })
+    } finally {
+      isSubmitting.current = false
+    }
   }
 
   return (
@@ -69,7 +109,12 @@ export function ContactPage() {
 
         <div className="contact-primary-column">
           <ChamferedPanel title="Send a message" className="contact-form-panel">
-            <form className="contact-form" onSubmit={handleUnavailableSubmission}>
+            <form
+              className="contact-form"
+              action={FORMSPREE_ENDPOINT}
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <label htmlFor="contact-name">
                 <span>
                   Name <span className="contact-required">(required)</span>
@@ -103,23 +148,26 @@ export function ContactPage() {
                 <textarea id="contact-message" name="message" rows={5} required />
               </label>
 
-              <p className="contact-form-notice" id="contact-delivery-notice">
-                Message delivery is not configured. This form cannot send messages yet.
-              </p>
-              {submissionNotice ? (
-                <p className="contact-submit-feedback" role="alert">
-                  {submissionNotice}
+              {submission.status !== 'idle' ? (
+                <p
+                  className="contact-submit-feedback"
+                  data-status={submission.status}
+                  role={submission.status === 'error' ? 'alert' : 'status'}
+                  aria-live={submission.status === 'error' ? 'assertive' : 'polite'}
+                  aria-atomic="true"
+                >
+                  {submission.status === 'sending'
+                    ? 'Sending your message…'
+                    : submission.message}
                 </p>
               ) : null}
 
-              {/* TODO: Configure a real delivery service and destination before enabling submit. */}
               <PrimaryButton
                 type="submit"
                 className="contact-submit-button"
-                disabled
-                aria-describedby="contact-delivery-notice"
+                disabled={submission.status === 'sending'}
               >
-                Send message
+                {submission.status === 'sending' ? 'Sending…' : 'Send message'}
               </PrimaryButton>
             </form>
           </ChamferedPanel>

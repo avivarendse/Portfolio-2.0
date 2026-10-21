@@ -989,7 +989,6 @@ textarea:focus-visible {
   resize: vertical;
 }
 
-.contact-form-notice,
 .contact-submit-feedback {
   margin: 0;
   color: var(--concrete-grey);
@@ -997,7 +996,15 @@ textarea:focus-visible {
   line-height: 1.5;
 }
 
-.contact-submit-feedback {
+.contact-submit-feedback[data-status='sending'] {
+  color: var(--soft-white);
+}
+
+.contact-submit-feedback[data-status='success'] {
+  color: var(--pitch-lime);
+}
+
+.contact-submit-feedback[data-status='error'] {
   color: var(--soft-white);
 }
 
