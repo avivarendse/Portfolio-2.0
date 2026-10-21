@@ -18,6 +18,10 @@ export function ProfilePage() {
         <ChamferedPanel title="Player profile" className="profile-card profile-identity-card">
           <dl className="profile-details">
             <div>
+              <dt>Name</dt>
+              <dd>Aviv Arendse</dd>
+            </div>
+            <div>
               <dt>Role</dt>
               <dd>Junior full-stack developer</dd>
             </div>
@@ -108,6 +112,14 @@ export function ProfilePage() {
 
       <div className="cta-row">
         <PrimaryButton to="/projects">Browse projects</PrimaryButton>
+        <a
+          className="secondary-button"
+          href="/Aviv-Arendse-CV.pdf"
+          download="Aviv-Arendse-CV.pdf"
+          aria-label="Download Aviv Arendse's CV as a PDF"
+        >
+          Download CV (PDF)
+        </a>
       </div>
     </PageContainer>
   )

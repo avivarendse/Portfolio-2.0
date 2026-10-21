@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { RouteMetadata } from './RouteMetadata'
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -10,6 +11,7 @@ const navItems = [
 export function SiteLayout() {
   return (
     <div className="site-shell">
+      <RouteMetadata />
       <header className="topbar">
         <div className="topbar-inner">
           <NavLink to="/" end className="brand-mark" aria-label="Road to the first team home">

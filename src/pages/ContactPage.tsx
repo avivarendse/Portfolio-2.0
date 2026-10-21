@@ -11,16 +11,34 @@ type SubmissionState =
   | { status: 'success'; message: string }
   | { status: 'error'; message: string }
 
-const contactMethods = [
-  // TODO: Add verified email, LinkedIn, and GitHub values and destinations before enabling links.
-  { label: 'Email', symbol: '@', value: null, href: null },
-  { label: 'LinkedIn', symbol: 'in', value: null, href: null },
-  { label: 'GitHub', symbol: 'GH', value: null, href: null },
+const verifiedContactMethods = [
+  {
+    label: 'Email',
+    symbol: '@',
+    value: 'avivarendse8@gmail.com',
+    href: 'mailto:avivarendse8@gmail.com',
+    external: false,
+  },
+  {
+    label: 'LinkedIn',
+    symbol: 'in',
+    value: 'linkedin.com/in/aviv-arendse-bb2815255',
+    href: 'https://www.linkedin.com/in/aviv-arendse-bb2815255',
+    external: true,
+  },
+  {
+    label: 'GitHub',
+    symbol: 'GH',
+    value: 'github.com/avivarendse',
+    href: 'https://github.com/avivarendse',
+    external: true,
+  },
 ] satisfies Array<{
   label: string
   symbol: string
-  value: string | null
-  href: string | null
+  value: string
+  href: string
+  external: boolean
 }>
 
 export function ContactPage() {
@@ -83,24 +101,20 @@ export function ContactPage() {
       <div className="contact-layout">
         <ChamferedPanel title="Contact options" className="contact-options-panel">
           <ul className="contact-method-list">
-            {contactMethods.map(({ label, symbol, value, href }) => (
+            {verifiedContactMethods.map(({ label, symbol, value, href, external }) => (
               <li key={label} className="contact-method">
                 <span className="contact-method-symbol" aria-hidden="true">
                   {symbol}
                 </span>
                 <div className="contact-method-content">
                   <h3>{label}</h3>
-                  {value && href ? (
-                    <a
-                      href={href}
-                      target={label === 'Email' ? undefined : '_blank'}
-                      rel={label === 'Email' ? undefined : 'noreferrer'}
-                    >
-                      {value}
-                    </a>
-                  ) : (
-                    <p>Details not provided yet</p>
-                  )}
+                  <a
+                    href={href}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                  >
+                    {value}
+                  </a>
                 </div>
               </li>
             ))}
