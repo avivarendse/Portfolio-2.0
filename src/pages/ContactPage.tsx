@@ -1,4 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { PrimaryButton } from '../components/Buttons'
 import { ChamferedPanel } from '../components/ChamferedPanel'
 import { PageContainer } from '../components/PageContainer'
@@ -93,33 +94,59 @@ export function ContactPage() {
         </>
       }
     >
-      <p className="contact-intro">
-        I welcome enquiries about junior developer opportunities, collaboration, and other
-        relevant professional conversations.
-      </p>
+      <section className="contact-intro" aria-labelledby="contact-invitation-title">
+        <div>
+          <p className="contact-section-kicker">Open channel / South Africa</p>
+          <h2 id="contact-invitation-title">Make the next move.</h2>
+        </div>
+        <p>
+          I welcome enquiries about junior developer opportunities, collaboration, and other
+          relevant professional conversations.
+        </p>
+      </section>
 
       <div className="contact-layout">
-        <ChamferedPanel title="Contact options" className="contact-options-panel">
-          <ul className="contact-method-list">
-            {verifiedContactMethods.map(({ label, symbol, value, href, external }) => (
-              <li key={label} className="contact-method">
-                <span className="contact-method-symbol" aria-hidden="true">
-                  {symbol}
-                </span>
-                <div className="contact-method-content">
-                  <h3>{label}</h3>
-                  <a
-                    href={href}
-                    target={external ? '_blank' : undefined}
-                    rel={external ? 'noopener noreferrer' : undefined}
-                  >
-                    {value}
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </ChamferedPanel>
+        <div className="contact-rail">
+          <ChamferedPanel title="Contact options" className="contact-options-panel">
+            <ul className="contact-method-list">
+              {verifiedContactMethods.map(({ label, symbol, value, href, external }) => (
+                <li key={label} className="contact-method">
+                  <span className="contact-method-symbol" aria-hidden="true">
+                    {symbol}
+                  </span>
+                  <div className="contact-method-content">
+                    <h3>{label}</h3>
+                    <a
+                      href={href}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
+                      aria-label={
+                        external ? `${label}: ${value} (opens in a new tab)` : undefined
+                      }
+                    >
+                      {value}
+                    </a>
+                  </div>
+                  {external ? (
+                    <span className="contact-external-mark" aria-hidden="true">
+                      ↗
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </ChamferedPanel>
+
+          <section className="contact-objective" aria-labelledby="contact-objective-title">
+            <p className="contact-section-kicker">Career direction</p>
+            <h2 id="contact-objective-title">
+              Working towards my first junior software engineering role.
+            </h2>
+            <Link to="/profile" className="contact-profile-link">
+              View profile <span aria-hidden="true">→</span>
+            </Link>
+          </section>
+        </div>
 
         <div className="contact-primary-column">
           <ChamferedPanel title="Send a message" className="contact-form-panel">
@@ -186,9 +213,20 @@ export function ContactPage() {
             </form>
           </ChamferedPanel>
 
-          <ChamferedPanel title="Career objective" className="contact-objective-panel">
-            <p>Working towards my first junior software engineering role.</p>
-          </ChamferedPanel>
+          <div className="contact-secondary-actions">
+            <Link to="/projects" className="contact-profile-link">
+              Explore projects <span aria-hidden="true">→</span>
+            </Link>
+            <a
+              className="contact-profile-link"
+              href="/Aviv-Arendse-CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View Aviv Arendse's CV as a PDF (opens in a new tab)"
+            >
+              View CV <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </PageContainer>

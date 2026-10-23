@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { PrimaryButton } from '../components/Buttons'
 import { ChamferedPanel } from '../components/ChamferedPanel'
 import { PageContainer } from '../components/PageContainer'
+import { projects } from '../data/projects'
+
+const handledProject = projects.find((project) => project.id === 'handled')
 
 export function ProfilePage() {
   return (
@@ -14,49 +17,40 @@ export function ProfilePage() {
         </>
       }
     >
-      <div className="profile-grid">
-        <ChamferedPanel title="Player profile" className="profile-card profile-identity-card">
+      <div className="profile-composition">
+        <section className="profile-identity" aria-labelledby="profile-name">
+          <div className="profile-identity-meta">
+            <span>Profile</span>
+            <span>Career profile</span>
+          </div>
+          <h2 id="profile-name">Aviv Arendse</h2>
+          <p className="profile-identity-role">Junior full-stack developer</p>
           <dl className="profile-details">
             <div>
-              <dt>Name</dt>
-              <dd>Aviv Arendse</dd>
-            </div>
-            <div>
-              <dt>Role</dt>
-              <dd>Junior full-stack developer</dd>
+              <dt>Career direction</dt>
+              <dd>First junior software engineering role</dd>
             </div>
             <div>
               <dt>Location</dt>
               <dd>South Africa</dd>
             </div>
-            <div>
-              <dt>Career direction</dt>
-              <dd>First junior software engineering role</dd>
-            </div>
           </dl>
-        </ChamferedPanel>
+        </section>
 
-        <ChamferedPanel title="About me" className="profile-card profile-intro-card">
+        <section className="profile-about" aria-labelledby="profile-about-title">
+          <p className="profile-section-kicker">About me / 01</p>
+          <h2 id="profile-about-title">Development background</h2>
           <p>
-            I am a junior full-stack developer based in South Africa, working towards my first
-            junior software engineering role. I have completed a full-stack web development
-            programme and have development programme and internship experience. My work includes
-            personal and collaborative projects.
+            I have completed a full-stack web development programme and have development
+            programme and internship experience. My work includes personal and collaborative
+            projects.
           </p>
-        </ChamferedPanel>
+        </section>
 
         <ChamferedPanel
-          title="Learning & development"
-          className="profile-card profile-background-card"
+          title="Technical toolkit"
+          className="profile-panel profile-toolkit-card"
         >
-          <ul className="profile-background-list">
-            <li>Completed a full-stack web development programme</li>
-            <li>Development programme and internship experience</li>
-            <li>Personal and collaborative project work</li>
-          </ul>
-        </ChamferedPanel>
-
-        <ChamferedPanel title="Technical toolkit" className="profile-card profile-toolkit-card">
           <div className="profile-toolkit">
             <section aria-labelledby="profile-frontend-heading">
               <h3 id="profile-frontend-heading">Frontend</h3>
@@ -89,37 +83,39 @@ export function ProfilePage() {
           </div>
         </ChamferedPanel>
 
-        <ChamferedPanel title="Current development focus" className="profile-card profile-focus-card">
-          <div className="profile-project-focus">
-            <div>
-              <h3>Handled</h3>
-              <p>
-                My main portfolio project: a full-stack field-service operations platform for small
-                plumbing and electrical businesses. It is under development; planned workflows are
-                not presented as completed features.
-              </p>
+        {handledProject ? (
+          <section className="profile-focus" aria-labelledby="profile-focus-title">
+            <div className="profile-focus-heading">
+              <div>
+                <p className="profile-section-kicker">Current development focus</p>
+                <h2 id="profile-focus-title">{handledProject.name}</h2>
+              </div>
+              {handledProject.status ? (
+                <span className="profile-project-status">{handledProject.status}</span>
+              ) : null}
             </div>
-            <Link to="/projects/handled" className="profile-project-link">
-              View Handled overview <span aria-hidden="true">→</span>
+            <p>{handledProject.summary}</p>
+            <Link to={`/projects/${handledProject.id}`} className="profile-project-link">
+              View {handledProject.name} overview <span aria-hidden="true">→</span>
             </Link>
+          </section>
+        ) : null}
+
+        <section className="profile-next-step" aria-labelledby="profile-next-step-title">
+          <p className="profile-section-kicker">Next step</p>
+          <h2 id="profile-next-step-title">Explore the portfolio.</h2>
+          <div className="profile-actions">
+            <PrimaryButton to="/projects">Browse projects</PrimaryButton>
+            <a
+              className="secondary-button"
+              href="/Aviv-Arendse-CV.pdf"
+              download="Aviv-Arendse-CV.pdf"
+              aria-label="Download Aviv Arendse's CV as a PDF"
+            >
+              Download CV (PDF)
+            </a>
           </div>
-        </ChamferedPanel>
-
-        <ChamferedPanel title="Career objective" className="profile-card profile-objective-card">
-          <p>Working towards my first junior software engineering role.</p>
-        </ChamferedPanel>
-      </div>
-
-      <div className="cta-row">
-        <PrimaryButton to="/projects">Browse projects</PrimaryButton>
-        <a
-          className="secondary-button"
-          href="/Aviv-Arendse-CV.pdf"
-          download="Aviv-Arendse-CV.pdf"
-          aria-label="Download Aviv Arendse's CV as a PDF"
-        >
-          Download CV (PDF)
-        </a>
+        </section>
       </div>
     </PageContainer>
   )

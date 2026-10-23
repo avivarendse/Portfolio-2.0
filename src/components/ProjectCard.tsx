@@ -4,19 +4,34 @@ import type { ProjectSummary } from '../data/projects'
 interface ProjectCardProps {
   project: ProjectSummary
   index: number
+  headingLevel: 'h2' | 'h3'
 }
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
+export function ProjectCard({ project, index, headingLevel }: ProjectCardProps) {
+  const ProjectHeading = headingLevel
+
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="project-card-link"
+      className={`project-card-link${project.featured ? ' project-card-link--featured' : ''}`}
       aria-label={`View ${project.name} project overview`}
     >
-      <article className="project-card">
+      <article
+        className={`project-card${project.featured ? ' project-card--featured' : ''}`}
+      >
         <div className="project-card-meta">
           <span>Project {String(index + 1).padStart(2, '0')}</span>
-          <span className="project-card-marker" aria-hidden="true" />
+          {project.featured ? (
+            <span className="project-card-featured-tag">Featured</span>
+          ) : null}
+          {project.status ? (
+            <span className="project-card-status">
+              <span className="project-card-marker" aria-hidden="true" />
+              {project.status}
+            </span>
+          ) : (
+            <span className="project-card-marker" aria-hidden="true" />
+          )}
         </div>
 
         {project.screenshot ? (
@@ -28,7 +43,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           />
         ) : null}
 
-        <h2>{project.name}</h2>
+        <ProjectHeading>{project.name}</ProjectHeading>
         <p className="project-card-summary">{project.summary}</p>
 
         {project.architecture ? (

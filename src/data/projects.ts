@@ -4,6 +4,8 @@ export type ProjectSummary = {
   summary: string
   stack: string[]
   architecture?: string
+  featured?: boolean
+  status?: string
   screenshot?: {
     src: string
     alt: string
@@ -14,6 +16,8 @@ export const projects: ProjectSummary[] = [
   {
     id: 'handled',
     name: 'Handled',
+    featured: true,
+    status: 'Under development',
     summary:
       'A mobile-first, full-stack field-service platform for small South African plumbing and electrical businesses. Its intended workflows cover scheduling, technician assignments, visit documentation, materials, progress, completion, and customer sign-off; implementation coverage has not been confirmed.',
     stack: ['Vue.js', 'JavaScript', 'Node.js', 'Express', 'MySQL'],
