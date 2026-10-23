@@ -1,5 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { AtmosphericBackground } from './AtmosphericBackground'
 import { RouteMetadata } from './RouteMetadata'
+import { SiteIntro } from './SiteIntro'
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -9,8 +11,22 @@ const navItems = [
 ]
 
 export function SiteLayout() {
+  const { pathname } = useLocation()
+  const atmosphereVariant =
+    pathname === '/'
+      ? 'stadium'
+      : pathname === '/contact'
+        ? 'floodlights'
+        : pathname === '/projects'
+          ? 'tactical'
+          : pathname === '/profile'
+            ? 'tunnel'
+            : 'quiet'
+
   return (
     <div className="site-shell">
+      <AtmosphericBackground variant={atmosphereVariant} />
+      <SiteIntro />
       <RouteMetadata />
       <header className="topbar">
         <div className="topbar-inner">
