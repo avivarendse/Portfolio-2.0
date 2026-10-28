@@ -23,8 +23,20 @@ export function ProfilePage() {
             <span>Profile</span>
             <span>Career profile</span>
           </div>
-          <h2 id="profile-name">Aviv Arendse</h2>
-          <p className="profile-identity-role">Junior full-stack developer</p>
+          <div className="profile-identity-content">
+            <img
+              className="profile-portrait"
+              src="/image/aviv-portrait-optimized.jpg"
+              alt="Portrait of Aviv Arendse"
+              width="1600"
+              height="2133"
+              fetchPriority="high"
+            />
+            <div className="profile-identity-copy">
+              <h2 id="profile-name">Aviv Arendse</h2>
+              <p className="profile-identity-role">Junior full-stack developer</p>
+            </div>
+          </div>
           <dl className="profile-details">
             <div>
               <dt>Career direction</dt>
@@ -96,7 +108,7 @@ export function ProfilePage() {
             </div>
             <p>{handledProject.summary}</p>
             <Link to={`/projects/${handledProject.id}`} className="profile-project-link">
-              View {handledProject.name} overview <span aria-hidden="true">→</span>
+              View {handledProject.name} case study <span aria-hidden="true">→</span>
             </Link>
           </section>
         ) : null}

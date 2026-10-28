@@ -69,13 +69,11 @@ The initial website consists of four main pages.
 
 Individual project case studies are part of the Projects section, not additional top-level navigation items.
 
-Proposed route pattern:
+Implemented route pattern:
 
 /projects/:id
 
-Each project detail page should provide a deeper explanation of the corresponding project, including its purpose, implementation, technical decisions, challenges, and verified outcomes.
-
-The case-study layout does not have a dedicated approved mockup in the initial reference set. It will be defined during implementation planning using the established design system and the actual requirements of each project.
+The Projects page at `/projects` is the project listing. Selecting a project opens its detail/case-study page at `/projects/:id`; there is no separate overview page or duplicate overview route.
 
 ### **2.3 Global navigation**
 
@@ -344,7 +342,7 @@ Case studies are nested within the Projects section. They are not a fifth main n
 
 A reusable case-study template should accommodate, where applicable:
 
-* Project overview.  
+* Project summary.
 * Problem or objective.  
 * Intended users and requirements.  
 * Main features.  
@@ -358,9 +356,7 @@ A reusable case-study template should accommodate, where applicable:
 
 Only include sections supported by the actual project. Do not fabricate results, usage numbers, client outcomes, or technical details.
 
-The case-study page layout will be designed later. There is no approved case-study mockup in the initial four-image reference set.
-
-The layout should follow the existing design system and adapt to the evidence available for each project, rather than forcing every project into identical content.
+The implemented detail layout follows the existing design system and adapts to the evidence available for each project, rather than forcing every project into identical content.
 
 ### **5.5 Contact — /contact**
 
@@ -415,23 +411,17 @@ Where development requires temporary data, use clearly identified development fi
 
 Project information should be structured so that project cards and case-study pages can share a consistent source of data.
 
-A suitable starting model may include:
+The current project model includes:
 
-* id  
-* title  
-* summary  
-* description  
-* technologies  
-* thumbnail  
-* screenshots  
-* repositoryUrl  
-* liveUrl  
-* featured  
-* caseStudySections
+* id and name
+* summary — a concise, one-sentence project description
+* role, team size, and contribution
+* technology stack
+* optional architecture, status, and featured state
+* optional repository links (which may distinguish frontend and backend repositories) and live URLs
+* optional screenshot information
 
-Fields should be optional where appropriate. The implementation must not require every project to have a live URL, repository, or extensive case study.
-
-This model is a starting point and should be refined after inspecting the real projects. Avoid unnecessary abstraction before the actual content requirements are known.
+Optional information should be omitted from the interface when it is unavailable. The implementation must not require every project to have a live URL, repository, or extensive case study.
 
 ### **6.4 Missing information**
 
@@ -917,4 +907,3 @@ ROAD TO THE FIRST TEAM should feel like a distinctive football career-mode exper
 Its visual identity should create the first impression. Its real projects, thoughtful technical explanations, accurate content, and reliable functionality should earn the visitor's confidence.
 
 The objective is not to simulate an established professional career. It is to present the developer's actual work convincingly and make the next career opportunity easier to reach.
-

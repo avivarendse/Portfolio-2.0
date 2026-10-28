@@ -41,17 +41,14 @@ function getMetadata(pathname: string) {
 
     if (project) {
       return {
-        title: `${project.name} Overview`,
-        description:
-          project.id === 'handled'
-            ? 'Handled is an under-development field-service operations platform for small South African plumbing and electrical businesses.'
-            : project.summary,
+        title: `${project.name} Case Study`,
+        description: project.summary,
       }
     }
 
     return {
-      title: 'Project Overview Unavailable',
-      description: "This project overview is not available in Aviv Arendse's portfolio.",
+      title: 'Project Case Study Unavailable',
+      description: "This project case study is not available in Aviv Arendse's portfolio.",
     }
   }
 
