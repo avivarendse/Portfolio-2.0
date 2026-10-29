@@ -219,7 +219,7 @@ export function ContactPage() {
             </Link>
             <a
               className="contact-profile-link"
-              href="/Aviv-Arendse-CV.pdf"
+              href={`${import.meta.env.BASE_URL}Aviv-Arendse-CV.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View Aviv Arendse's CV as a PDF (opens in a new tab)"

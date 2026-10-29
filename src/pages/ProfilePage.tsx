@@ -26,7 +26,7 @@ export function ProfilePage() {
           <div className="profile-identity-content">
             <img
               className="profile-portrait"
-              src="/image/aviv-portrait-optimized.jpg"
+              src={`${import.meta.env.BASE_URL}image/aviv-portrait-optimized.jpg`}
               alt="Portrait of Aviv Arendse"
               width="1600"
               height="2133"
@@ -87,7 +87,7 @@ export function ProfilePage() {
               </ul>
             </section>
             <section aria-labelledby="profile-languages-heading">
-              <h3 id="profile-languages-heading">Language</h3>
+              <h3 id="profile-languages-heading">Other Languages</h3>
               <ul>
                 <li>Python</li>
               </ul>
@@ -120,7 +120,7 @@ export function ProfilePage() {
             <PrimaryButton to="/projects">Browse projects</PrimaryButton>
             <a
               className="secondary-button"
-              href="/Aviv-Arendse-CV.pdf"
+              href={`${import.meta.env.BASE_URL}Aviv-Arendse-CV.pdf`}
               download="Aviv-Arendse-CV.pdf"
               aria-label="Download Aviv Arendse's CV as a PDF"
             >
